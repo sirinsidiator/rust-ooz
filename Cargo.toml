@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2024 sirinsidiator
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+[package]
+name = "rust-ooz"
+version = "1.0.0"
+description = "Very simple rust binding for use in Black Book Browser"
+authors = ["sirinsidiator"]
+license = "GPL-3.0-or-later"
+repository = "https://github.com/sirinsidiator/rust-ooz"
+edition = "2021"
+
+[build-dependencies]
+cxx-build = "1.0.121"
+
+[dependencies]
+cxx = "1.0.121"
