@@ -10,12 +10,17 @@ use std::path::Path;
 fn main() {
     copy_portable_stdafx();
     remove_main_function_and_load_lib();
-    cxx_build::bridge("src/lib.rs")
+
+    let dst = Path::new("src/ooz");
+    cc::Build::new()
+        .cpp(true)
         .file("src/ooz/kraken.cpp")
         .file("src/ooz/bitknit.cpp")
         .file("src/ooz/lzna.cpp")
+        .file("src/ooz.cpp")
+        .include(dst)
         .flag_if_supported("-fno-exceptions")
-        .compile("cxx-rust-ooz");
+        .compile("rust-ooz-native");
 }
 
 fn copy_portable_stdafx() {

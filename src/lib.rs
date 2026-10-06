@@ -4,21 +4,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+use std::ffi::c_int;
 use std::fs::File;
 use std::io::{Read, Seek, SeekFrom};
 
-#[cxx::bridge]
-mod ffi {
-    unsafe extern "C++" {
-        include!("rust-ooz/src/ooz.h");
-
-        unsafe fn Kraken_Decompress(
-            src: *const u8,
-            src_len: usize,
-            dst: *mut u8,
-            dst_len: usize,
-        ) -> i32;
-    }
+extern "C" {
+    fn ooz_kraken_decompress(src: *const u8, src_len: usize, dst: *mut u8, dst_len: usize)
+        -> c_int;
 }
 
 pub fn read_partial_file(path: &str, offset: usize, length: usize) -> Result<Vec<u8>, String> {
@@ -55,7 +47,7 @@ pub fn decompress(
     unsafe {
         // ooz tends to write outside of the buffer, so we need to allocate a bit more
         let mut output = vec![0; file_size + 64];
-        let result_size = ffi::Kraken_Decompress(
+        let result_size = ooz_kraken_decompress(
             input.as_ptr(),
             compressed_size,
             output.as_mut_ptr(),

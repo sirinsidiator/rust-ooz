@@ -4,7 +4,7 @@
 
 [package]
 name = "rust-ooz"
-version = "1.1.0"
+version = "1.2.0"
 description = "Very simple rust binding for use in Black Book Browser"
 authors = ["sirinsidiator"]
 license = "GPL-3.0-or-later"
@@ -12,7 +12,4 @@ repository = "https://github.com/sirinsidiator/rust-ooz"
 edition = "2021"
 
 [build-dependencies]
-cxx-build = "1.0.202"
-
-[dependencies]
-cxx = "1.0.202"
+cc = "1.6.0"
